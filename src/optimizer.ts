@@ -1,4 +1,4 @@
-export class Optimizer<P> implements GOptimizer<P> {
+export class GeneticOptimizer<P> implements Optimizer<P> {
     constructor(private config: Config<P>){
 
     }
@@ -17,7 +17,7 @@ export class Optimizer<P> implements GOptimizer<P> {
             });
 
             population = this.crossover(results);
-        } while (generation++ < this.config.maxGenerations && this.config.endCondition(optimal.input, optimal.score));
+        } while (!this.config.endCondition(optimal.input, optimal.score, generation++));
 
         return optimal.input;
     }
@@ -41,7 +41,7 @@ export class Optimizer<P> implements GOptimizer<P> {
 
 }
 
-export interface GOptimizer<P> {
+export interface Optimizer<P> {
     findOptimal(population: P[]): P;
 }
 
@@ -51,8 +51,7 @@ export interface EvaluatedInput<P> {
 }
 
 export interface Config<P> {
-    maxGenerations: number;
-    endCondition: (currentOptimalInput: P, score: number) => boolean;
+    endCondition: (currentOptimalInput: P, score: number, generation: number) => boolean;
     crossover: (inputA: P, inputB: P) => P;
     evaluate: (input: P) => number;
 }
