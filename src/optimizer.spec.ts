@@ -1,5 +1,9 @@
+import { Optimizer } from "./optimizer";
+
 describe('Genetic optimizer', () => {
     it('can be constructed', () => {
-        expect(100).toBe(100);
+        let optimizer = new Optimizer<number>({} as any);
+        expect(optimizer).not.toBeNull();
+        expect(optimizer.findOptimal).toBeDefined();
     });
 });

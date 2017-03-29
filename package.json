@@ -2,7 +2,7 @@
   "name": "genetic-optimization",
   "version": "1.0.0",
   "description": "A simple genetic optimization library for TypeScript.",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "build": "tsc",
     "test": "karma start",
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/s-soltys/genetic-optimization#readme",
   "devDependencies": {
-    "typescript": "^2.2.2",
+    "typescript": "2.1.6",
     "@types/jasmine": "^2.5.35",
     "jasmine-core": "^2.5.2",
     "karma": "^1.5.0",
