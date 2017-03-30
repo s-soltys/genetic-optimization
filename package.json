@@ -1,6 +1,6 @@
 {
   "name": "genetic-optimization",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple genetic optimization library for TypeScript.",
   "main": "index.ts",
   "scripts": {

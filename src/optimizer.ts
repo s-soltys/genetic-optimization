@@ -1,4 +1,4 @@
-export class GeneticOptimizer<P> implements Optimizer<P> {
+export class Optimizer<P> {
     constructor(private config: Config<P>){
 
     }
@@ -7,7 +7,7 @@ export class GeneticOptimizer<P> implements Optimizer<P> {
         let optimal: EvaluatedInput<P> = { input: population[0], score: Number.NEGATIVE_INFINITY };
         let generation = 0;
 
-        do {
+        while (!this.config.endCondition(optimal.input, optimal.score, generation++)) {
             let results = population.map(input => ({ input, score: this.config.evaluate(input) }));
 
             results.forEach(current => {
@@ -17,13 +17,13 @@ export class GeneticOptimizer<P> implements Optimizer<P> {
             });
 
             population = this.crossover(results);
-        } while (!this.config.endCondition(optimal.input, optimal.score, generation++));
+        }
 
         return optimal.input;
     }
 
     private crossover(previousGeneration: EvaluatedInput<P>[]): P[] {
-        let nextGeneration: P[] = new Array<P>(previousGeneration.length);
+        const nextGeneration = new Array<P>(previousGeneration.length);
 
         for (let i = 0; i < nextGeneration.length; i++){
             let j = Math.floor(nextGeneration.length * Math.random()); // TODO ensure j != i
@@ -39,10 +39,6 @@ export class GeneticOptimizer<P> implements Optimizer<P> {
         return nextGeneration;
     }
 
-}
-
-export interface Optimizer<P> {
-    findOptimal(population: P[]): P;
 }
 
 export interface EvaluatedInput<P> {

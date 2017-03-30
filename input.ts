@@ -1,1 +1,1 @@
-export * from './src/optimizer';
+export { Optimizer, Config } from './src/optimizer';
